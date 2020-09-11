@@ -1,13 +1,16 @@
 .shop-container{
     display: flex;
+    width: 100%;
 }
 .product-container{
     width: 70%;
     margin-left: 20px;
     margin-right: 5px;
     border-right: 1px solid lightgray;
+    margin-left: 200px;
 }
 
 .card-container{
-
+    width: 20%;
+    padding-left: 20px;
 }

@@ -1,0 +1,13 @@
+.review-container{
+    display: flex;
+    width: 100%;
+}
+
+.review{
+    border-right: 1px solid lightgray;
+    width: 80%;
+}
+
+.cart-container{
+    padding-left: 20px;
+}
