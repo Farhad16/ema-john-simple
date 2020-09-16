@@ -13,13 +13,14 @@ const Header = (props) => {
             <img src={logo} alt="" />
             <nav className="navber">
                 <Link to="/shop">Shop</Link>
-                <Link to="/review">Order Review</Link>
-                <Link to="/inventory">Manage Inventory</Link>
-
+                <Link to="/orders">Orders</Link>
+                <Link to="/history">Order History</Link>
                 <button onClick={() => setLoggedInUser({})}>Sign Out</button>
 
 
-                <span className="cartLogo"><FontAwesomeIcon icon={faShoppingCart} /></span>
+                <span className="cartLogo">
+                    {loggedInUser.name}<FontAwesomeIcon icon={faShoppingCart} />
+                </span>
             </nav>
         </div>
     );
