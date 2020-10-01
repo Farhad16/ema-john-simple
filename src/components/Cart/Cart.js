@@ -2,7 +2,7 @@ import React from 'react';
 
 const Cart = (props) => {
     const cart = props.cart;
-    const total = cart.reduce((total, prd) => total + prd.price * prd.quantity, 0);
+    const total = cart.reduce((total, prd) => total + prd.price * prd.quantity || 1, 0);
 
     // reduce Simitlar to this code
     // let total = 0;
@@ -12,7 +12,7 @@ const Cart = (props) => {
     //     debugger;
     // }
     let tax = 0;
-    const shipping = cart.reduce((shipping, product) => shipping + product.shipping * product.quantity, 0);
+    const shipping = cart.reduce((shipping, product) => shipping + product.shipping * product.quantity || 1, 0);
     tax = (total / 10);
     const totalPrice = total + shipping + tax;
 

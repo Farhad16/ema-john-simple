@@ -1,29 +1,38 @@
 import React, { useState } from 'react';
-import fakeData from '../../fakeData';
 import './Shop.css';
 import Products from '../Products/Products';
 import Cart from '../Cart/Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 
 const Shop = () => {
-    const frist10 = fakeData.slice(0, 10);
-    const [products] = useState(frist10);
+    const [isLoading, setIsLoading] = useState(false)
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
 
+
+    useEffect(() => {
+        fetch('http://localhost:5000/products')
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data)
+                setIsLoading(true)
+            })
+    }, [])
     //Load cart 
     useEffect(() => {
         const getSavedProduct = getDatabaseCart();
         const productKeys = Object.keys(getSavedProduct);
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pdk => pdk.key === key);
-            product.quantity = getSavedProduct[key];
-            return product;
-        });
-
-        setCart(cartProducts);
+        fetch('http://localhost:5000/productByKey', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productKeys)
+        })
+            .then(res => res.json())
+            .then(data => setCart(data))
     }, [])
 
     //Set product quantity when product is added
@@ -51,12 +60,16 @@ const Shop = () => {
         <div className="shop-container">
             <div className="product-container">
                 {
-                    products.map(product => <Products product={product} key={product.key} handleAddProduct={handleAddProduct} showAddToCart={true}></Products>)
+                    isLoading ? products.map(product => <Products product={product} key={product.key} handleAddProduct={handleAddProduct} showAddToCart={true}></Products>) :
+                        <div className="loading">
+                            <h3>Loading....</h3>
+                            <div className="loader"></div>
+                        </div>
                 }
             </div>
             <div className="card-container">
                 <Cart cart={cart}>
-                    <Link to="/history"><button className="add-button">Review Order</button></Link>
+                    <Link to="/review"><button className="add-button">Review Order</button></Link>
                 </Cart>
             </div>
         </div>
