@@ -15,7 +15,7 @@ const Shop = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch('https://limitless-sands-03516.herokuapp.com/products')
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
@@ -26,7 +26,7 @@ const Shop = () => {
     useEffect(() => {
         const getSavedProduct = getDatabaseCart();
         const productKeys = Object.keys(getSavedProduct);
-        fetch('http://localhost:5000/productByKey', {
+        fetch('https://limitless-sands-03516.herokuapp.com/productByKey', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productKeys)
