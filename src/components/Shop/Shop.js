@@ -6,10 +6,11 @@ import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseMana
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Spinner } from 'react-bootstrap';
 
 
 const Shop = () => {
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
 
@@ -19,7 +20,7 @@ const Shop = () => {
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
-                setIsLoading(true)
+                setIsLoading(false)
             })
     }, [])
     //Load cart 
@@ -60,11 +61,11 @@ const Shop = () => {
         <div className="shop-container">
             <div className="product-container">
                 {
-                    isLoading ? products.map(product => <Products product={product} key={product.key} handleAddProduct={handleAddProduct} showAddToCart={true}></Products>) :
-                        <div className="loading">
-                            <h3>Loading....</h3>
-                            <div className="loader"></div>
-                        </div>
+                    isLoading ? <div className="loading">
+                        <p>Loading...</p>
+                        <Spinner animation="border" />
+                    </div> :
+                        products.map(product => <Products product={product} key={product.key} handleAddProduct={handleAddProduct} showAddToCart={true}></Products>)
                 }
             </div>
             <div className="card-container">

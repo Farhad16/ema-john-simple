@@ -6,3 +6,8 @@
 .product-details img{
     width: 80%;
 }
+
+.loading{
+    text-align:center;
+    margin: 0 auto
+}
