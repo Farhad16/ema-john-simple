@@ -5,7 +5,6 @@ import Cart from '../Cart/Cart';
 import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseManager';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { Spinner } from 'react-bootstrap';
 
 
