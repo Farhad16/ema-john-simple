@@ -21,6 +21,7 @@ export const handleGoogleSignIn = () => {
                 photoURL: photoURL,
                 success: true
             }
+            setUserToken();
             return signedInUser;
         })
         .catch(err => {
@@ -71,6 +72,15 @@ export const handleSignOut = () => {
         })
 }
 
+
+const setUserToken = () => {
+    firebase.auth().currentUser.getIdToken(/* forceRefresh */ true)
+        .then(function (idToken) {
+            sessionStorage.setItem('token', idToken);
+        }).catch(function (error) {
+            // Handle error
+        });
+}
 export const createUserWithEmailAndPassword = (name, email, password) => {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(res => {

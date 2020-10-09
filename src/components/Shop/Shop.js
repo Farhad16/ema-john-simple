@@ -11,19 +11,21 @@ import { Spinner } from 'react-bootstrap';
 
 const Shop = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const [search, setSearch] = useState('');
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([])
 
 
     useEffect(() => {
-        fetch('https://limitless-sands-03516.herokuapp.com/products')
+        fetch(`https://limitless-sands-03516.herokuapp.com/products?search=${search}`)
             .then(res => res.json())
             .then(data => {
                 setProducts(data)
                 setIsLoading(false)
             })
-    }, [])
-    //Load cart 
+    }, [search])
+
+
     useEffect(() => {
         const getSavedProduct = getDatabaseCart();
         const productKeys = Object.keys(getSavedProduct);
@@ -56,10 +58,17 @@ const Shop = () => {
         addToDatabaseCart(product.key, count)
     }
 
+    const handleSeacrh = (e) => {
+        setSearch(e.target.value);
+    }
+
 
     return (
         <div className="shop-container">
             <div className="product-container">
+                <div className="d-flex search">
+                    <input type="text" onBlur={handleSeacrh} className="form-control" placeholder="Search Product..." />
+                </div>
                 {
                     isLoading ? <div className="loading">
                         <p>Loading...</p>

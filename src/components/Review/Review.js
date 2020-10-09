@@ -50,7 +50,6 @@ const Review = () => {
     return (
         <div className="review-container">
             <div className="review">
-                <h1>Total product {countProduct}</h1>
                 {
                     cart.map(pd => <ReviewItem product={pd} key={pd.key} handleRemoveProduct={handleRemoveProduct}></ReviewItem>)
                 }

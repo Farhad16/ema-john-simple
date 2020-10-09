@@ -11,9 +11,10 @@
 .product img{
     margin-right: 10px;
 }
-.product-name h4{
+.product-name h3{
     color: blue;
     font-weight: 400;
+    font-size: 20px;
 }
 
 .add-button{
